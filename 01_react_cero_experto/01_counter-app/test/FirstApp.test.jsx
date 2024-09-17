@@ -1,4 +1,4 @@
-const { render } = require("@testing-library/react")
+const { render, screen } = require("@testing-library/react")
 const { FirstApp } = require("../src/FirstApp")
 
 describe('FirstApp.jsx',() => {
@@ -42,10 +42,30 @@ describe('FirstApp.jsx',() => {
         const title = "Soy josema"
         const subtitle = "titulo secundario"
 
-        const { getByText, getAllByText } = render( <FirstApp title={title} subtitle={subtitle} />)
+        const { getByText, getAllByText } = render( <FirstApp title={title} subTitle={subtitle} />)
 
         expect( getByText(subtitle) ).toBeTruthy();
-        expect( getAllByText(subtitle).length ).toBe(1);
+        expect( getAllByText(subtitle).length ).toBe(2);
+    })
+
+    test('should display title in h1 tag', () => {
+        const title = "Soy josema";
+        const subtitle = "titulo secundario"
+        render( <FirstApp title={title} subTitle={subtitle} />)
+
+        // screen.debug // para ver el objeto
+        expect( screen.getByText(title) ).toBeTruthy(); 
+        expect( screen.getByRole('heading', {level: 1}).innerHTML ).toContain(title);
+    })
+
+    test('should display the subtitle thats comes int the props', ()=> {
+        const title = "Soy josema"
+        const subtitle = "titulo secundario"
+
+        render( <FirstApp title={title} subTitle={subtitle} />)
+
+        expect( screen.getByText(subtitle) ).toBeTruthy();
+        expect( screen.getAllByText(subtitle).length ).toBe(1);
     })
 
 })
