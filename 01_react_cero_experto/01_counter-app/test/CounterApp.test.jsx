@@ -18,11 +18,19 @@ describe('CounterApp', () => {
         expect( screen.getByText(100) ).toBeTruthy();
     })
 
-    test('', () => {
+    test('should increment by one ', () => {
 
         render( <CounterApp value={initlaValue}/> );
         fireEvent.click( screen.getByText('+1') );
 
         expect( screen.getByText('11')).toBeTruthy();
+    })
+
+    test('should subtract one ', () => {
+
+        render( <CounterApp value={initlaValue}/> );
+        fireEvent.click( screen.getByText('-1') );
+
+        expect( screen.getByText('9')).toBeTruthy();
     })
 })
