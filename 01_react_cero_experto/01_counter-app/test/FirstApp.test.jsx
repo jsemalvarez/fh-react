@@ -45,7 +45,7 @@ describe('FirstApp.jsx',() => {
         const { getByText, getAllByText } = render( <FirstApp title={title} subTitle={subtitle} />)
 
         expect( getByText(subtitle) ).toBeTruthy();
-        expect( getAllByText(subtitle).length ).toBe(2);
+        expect( getAllByText(subtitle).length ).toBe(1);
     })
 
     test('should display title in h1 tag', () => {

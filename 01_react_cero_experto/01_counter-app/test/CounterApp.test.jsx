@@ -12,10 +12,10 @@ describe('CounterApp', () => {
         expect( container ).toMatchSnapshot();
     })
 
-    test('should display value = 100', () => {
+    test('should display value = 10', () => {
 
         render( <CounterApp value={ initlaValue } /> ); 
-        expect( screen.getByText(100) ).toBeTruthy();
+        expect( screen.getByText(10) ).toBeTruthy();
     })
 
     test('should increment by one ', () => {
@@ -32,5 +32,16 @@ describe('CounterApp', () => {
         fireEvent.click( screen.getByText('-1') );
 
         expect( screen.getByText('9')).toBeTruthy();
+    })
+
+    test('should reset the counter ', () => {
+
+        render( <CounterApp value={ 333 }/> );
+        fireEvent.click( screen.getByText('+1') );
+        fireEvent.click( screen.getByText('+1') );
+        fireEvent.click( screen.getByText('+1') );
+        fireEvent.click( screen.getByText('Reset') );
+
+        expect( screen.getByText('333')).toBeTruthy();
     })
 })
