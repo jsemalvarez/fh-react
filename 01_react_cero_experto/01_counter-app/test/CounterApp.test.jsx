@@ -1,9 +1,10 @@
-import { render, screen } from "@testing-library/react"
+import { fireEvent, render, screen } from "@testing-library/react"
 import { CounterApp } from "../src/CounterApp"
 
 describe('CounterApp', () => {
 
     const initlaValue = 10;
+
     test('should be to match with the snapshot',()=> {
 
         const { container } = render( <CounterApp value={ initlaValue } /> );
@@ -15,5 +16,13 @@ describe('CounterApp', () => {
 
         render( <CounterApp value={ initlaValue } /> ); 
         expect( screen.getByText(100) ).toBeTruthy();
+    })
+
+    test('', () => {
+
+        render( <CounterApp value={initlaValue}/> );
+        fireEvent.click( screen.getByText('+1') );
+
+        expect( screen.getByText('11')).toBeTruthy();
     })
 })
