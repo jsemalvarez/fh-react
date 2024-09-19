@@ -40,7 +40,9 @@ describe('CounterApp', () => {
         fireEvent.click( screen.getByText('+1') );
         fireEvent.click( screen.getByText('+1') );
         fireEvent.click( screen.getByText('+1') );
-        fireEvent.click( screen.getByText('Reset') );
+
+        // fireEvent.click( screen.getByText('Reset') );
+        fireEvent.click(screen.getByRole('button', { name: 'btn-reset' }));
 
         expect( screen.getByText('333')).toBeTruthy();
     })
