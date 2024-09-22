@@ -21,6 +21,13 @@ describe('GiftItem', () => {
 
         expect( src ).toBe( url )
         expect( alt ).toBe( title )
-
     })
+
+    test('should display the title in the component', () => {
+
+        render(<GifItem title={ title} url={ url } />)
+
+        expect(screen.getByText(title)).toBeTruthy()
+    })
+    
 })
