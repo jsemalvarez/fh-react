@@ -21,4 +21,31 @@ describe('GifGrid', () => {
         expect( screen.getByText( mockCategory ))
     })
 
+    test('should display the gifs when useFetchGifs return images ', () => {
+
+        const mockImages = [
+            {
+                id: 'ABC',
+                title: 'Saitama',
+                url: 'https://localhost/saitama.jpg'
+            },
+            {
+                id: '123',
+                title: 'Goku',
+                url: 'https://localhost/goku.jpg'
+            },
+        ]
+
+        useFetchGifs.mockReturnVale({
+            images: mockImages,
+            isLoading: false
+        })
+
+        const mockCategory = 'One Punch';
+
+        render( <GifGrid category={ mockCategory } /> )
+
+        expect( screen.getAllByRole('img').length ).toBe( 2 )
+    })
+
 })
