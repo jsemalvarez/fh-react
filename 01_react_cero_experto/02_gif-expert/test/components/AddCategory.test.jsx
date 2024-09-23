@@ -40,4 +40,20 @@ describe('AddCategory', () => {
         expect( onNewCategory ).toHaveBeenCalledWith( mockCategory );
     })
 
+    test('should not called onNewCategory if input value is empty when is submitted', () => {
+
+        const onNewCategory = jest.fn();
+
+        render( <AddCategory onNewCategory={ onNewCategory } /> );
+
+        const input = screen.getByRole('textbox')
+        const form = screen.getByRole('form')
+
+        fireEvent.submit( form );
+
+        expect( input.value ).toBe( '' );
+        expect( onNewCategory ).not.toHaveBeenCalled();
+        expect( onNewCategory ).toHaveBeenCalledTimes( 0 )        
+    })
+
 })
