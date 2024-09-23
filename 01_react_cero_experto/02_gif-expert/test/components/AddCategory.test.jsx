@@ -17,4 +17,27 @@ describe('AddCategory', () => {
         expect( input.value ).toBe( mockCategory );
     })
 
+    test('should call onNewCategory if the input has a value', () => {
+
+        const mockCategory = 'Saitama';
+        const onNewCategory = jest.fn();
+
+        render( <AddCategory onNewCategory={ onNewCategory } />)
+
+        const input = screen.getByRole('textbox')
+        const form = screen.getByRole('form')
+        const mockEvent = { target: { value: mockCategory }}
+
+        fireEvent.input( input, mockEvent );
+        fireEvent.submit( form )
+
+        // los valores de input se pasan por refencia,
+        // por eso, si se hizo el submit, el input esta vacio
+        expect( input.value ).toBe( '' );
+
+        expect( onNewCategory ).toHaveBeenCalled();
+        expect( onNewCategory ).toHaveBeenCalledTimes(1);
+        expect( onNewCategory ).toHaveBeenCalledWith( mockCategory );
+    })
+
 })
