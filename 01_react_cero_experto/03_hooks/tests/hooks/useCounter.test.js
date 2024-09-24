@@ -54,19 +54,19 @@ describe('useCounter', () => {
         expect( result.current.counter ).toBe( tatalResult )
     })
 
-    test('should increment', ()=> {
+    test('should decrement', ()=> {
 
         const initialValue = 100; 
         const firstDecrement = 1;
         const secondDecrement = 2;
-        const tatalResult = initialValue - firstDecrement - firstDecrement
+        const tatalResult = initialValue - firstDecrement - secondDecrement
 
         const { result } = renderHook( () => useCounter( initialValue ) );
         const { decrement } = result.current
 
         act( () => {
-            decrement( firstDecrement )
-            decrement( secondDecrement )
+            decrement()
+            decrement( 2 )
         })
         
         expect( result.current.counter ).toBe( tatalResult )
