@@ -53,4 +53,22 @@ describe('useCounter', () => {
         // expect( counter ).toBe( tatalResult )
         expect( result.current.counter ).toBe( tatalResult )
     })
+
+    test('should increment', ()=> {
+
+        const initialValue = 100; 
+        const firstDecrement = 1;
+        const secondDecrement = 2;
+        const tatalResult = initialValue - firstDecrement - firstDecrement
+
+        const { result } = renderHook( () => useCounter( initialValue ) );
+        const { decrement } = result.current
+
+        act( () => {
+            decrement( firstDecrement )
+            decrement( secondDecrement )
+        })
+        
+        expect( result.current.counter ).toBe( tatalResult )
+    })
 })
