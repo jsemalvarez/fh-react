@@ -37,5 +37,22 @@ describe('useForm', () => {
         expect( result.current.name ).toBe( newValue );
         expect( result.current.formState.name ).toBe( newValue );
     })
+
+    test('should reset form when onResetForm is called', () => {
+
+        const newValue = 'piter';
+        const mockEvent = {target:{name: 'name', value: newValue}}
+
+        const { result } = renderHook( () => useForm( initialForm ) );
+        const { onInputChange, onResetForm } = result.current
+
+        act( () => {
+            onInputChange( mockEvent )
+            onResetForm()
+        })
+
+        expect( result.current.name ).toBe( initialForm.name );
+        expect( result.current.formState.name ).toBe( initialForm.name );
+    })
     
 })
