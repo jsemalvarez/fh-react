@@ -71,4 +71,22 @@ describe('useCounter', () => {
         
         expect( result.current.counter ).toBe( tatalResult )
     })
+
+    test('should reset', ()=> {
+
+        const initialValue = 100; 
+        const firstDecrement = 1;
+        const secondDecrement = 2;
+
+        const { result } = renderHook( () => useCounter( initialValue ) );
+        const { decrement, reset } = result.current
+
+        act( () => {
+            decrement( firstDecrement )
+            decrement( secondDecrement )
+            reset()
+        })
+        
+        expect( result.current.counter ).toBe( initialValue )
+    })
 })
