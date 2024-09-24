@@ -1,4 +1,4 @@
-import { renderHook } from "@testing-library/react"
+import { act, render, renderHook } from "@testing-library/react"
 import { useForm } from "../../src/hooks/useForm"
 
 
@@ -21,4 +21,21 @@ describe('useForm', () => {
             onResetForm: expect.any( Function ),
         })
     })
+
+    test('should update form filed value when onInputChange is called', () => {
+
+        const newValue = 'piter';
+        const mockEvent = {target:{name: 'name', value: newValue}}
+
+        const { result } = renderHook( () => useForm( initialForm ) );
+        const { onInputChange } = result.current
+
+        act( () => {
+            onInputChange( mockEvent )
+        })
+
+        expect( result.current.name ).toBe( newValue );
+        expect( result.current.formState.name ).toBe( newValue );
+    })
+    
 })
