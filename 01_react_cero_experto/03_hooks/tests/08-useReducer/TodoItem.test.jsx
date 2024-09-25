@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react"
+import { fireEvent, render, screen } from "@testing-library/react"
 import { TodoItem } from "../../src/08-useReducer/TodoItem"
 
 
@@ -21,7 +21,7 @@ describe('TodoItem', ()=> {
         render(
             <TodoItem
                 todo={todo}
-                onToggleTodoMock={ onToggleTodoMock }
+                onToggleTodo={ onToggleTodoMock }
                 onDeleteTodo={ onDeleteTodoMock }
             />
         )
@@ -44,7 +44,7 @@ describe('TodoItem', ()=> {
         render(
             <TodoItem
                 todo={todo}
-                onToggleTodoMock={ onToggleTodoMock }
+                onToggleTodo={ onToggleTodoMock }
                 onDeleteTodo={ onDeleteTodoMock }
             />
         )
@@ -52,5 +52,21 @@ describe('TodoItem', ()=> {
         const spanElement = screen.getByLabelText('span');
 
         expect( spanElement.className ).toContain('text-decoration-line-through')
+    })
+
+    test('should call onToggleTodo with id param', () => {
+
+        render(
+            <TodoItem
+                todo={todo}
+                onToggleTodo={ onToggleTodoMock }
+                onDeleteTodo={ onDeleteTodoMock }
+            />
+        )
+
+        const spanElement = screen.getByLabelText('span');
+        fireEvent.click( spanElement )   
+        
+        expect( onToggleTodoMock ).toHaveBeenCalledWith( todo.id )
     })
 })
