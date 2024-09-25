@@ -1,4 +1,4 @@
-import { useTodos } from '../hooks';
+import { useTodos } from '../hooks/useTodos';
 import { TodoAdd } from './TodoAdd';
 import { TodoList } from './TodoList';
 
