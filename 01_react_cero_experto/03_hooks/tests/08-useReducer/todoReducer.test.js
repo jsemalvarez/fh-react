@@ -44,4 +44,15 @@ describe('todoReducer', () => {
         expect( todoReducer.length ).toBe( 0 )
     })
 
+    test('should update todo', () => {
+        
+        const action = {
+            type: '[TODO] Toggle Todo',
+            payload: 1
+        }
+
+        const todoState = todoReducer(initialState, action)
+
+        expect(todoState[0].done ).toBe( true );
+    })
 })
