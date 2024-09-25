@@ -11,8 +11,24 @@ describe('todoReducer', () => {
 
     test('should return the initial state', () => {
 
-        const todoState = todoReducer(initialState)
+        const todoState = todoReducer(initialState, {})
 
         expect(todoState).toBe(initialState)
+    })
+
+    test('should add todo', () => {
+
+        const action = {
+            type: '[TODO] Add Todo',
+            payload: {
+                id: 2,
+                description: 'Test add todo',
+                done: false,
+            }
+        }
+        const todoState = todoReducer(initialState, action)
+
+        expect( todoState.length ).toBe( 2 );
+        expect( todoState ).toContain( action.payload );
     })
 })
