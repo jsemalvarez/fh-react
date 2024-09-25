@@ -16,7 +16,7 @@ describe('TodoItem', ()=> {
 
     beforeEach( () => jest.clearAllMocks() )
 
-    test('show display initial state', () => {
+    test('should display initial state', () => {
 
         render(
             <TodoItem
@@ -35,5 +35,22 @@ describe('TodoItem', ()=> {
         expect( spanElement.className ).toBe('align-self-center ') // tiene un espacio al final
         expect( spanElement.className ).toContain('align-self-center')
         expect( spanElement.className ).not.toContain('text-decoration-line-through')
+    })
+
+    test('should display todo is done', () => {
+
+        todo.done = true
+
+        render(
+            <TodoItem
+                todo={todo}
+                onToggleTodoMock={ onToggleTodoMock }
+                onDeleteTodo={ onDeleteTodoMock }
+            />
+        )
+
+        const spanElement = screen.getByLabelText('span');
+
+        expect( spanElement.className ).toContain('text-decoration-line-through')
     })
 })
