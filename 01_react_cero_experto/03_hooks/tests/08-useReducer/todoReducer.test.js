@@ -31,4 +31,17 @@ describe('todoReducer', () => {
         expect( todoState.length ).toBe( 2 );
         expect( todoState ).toContain( action.payload );
     })
+
+    test('should delete todo',() => {
+
+        const action = {
+            type: '[TODO] Remove Todo',
+            payload: 1
+        }
+
+        const todoState = todoReducer(initialState, action)
+
+        expect( todoReducer.length ).toBe( 0 )
+    })
+
 })
