@@ -69,4 +69,20 @@ describe('TodoItem', ()=> {
         
         expect( onToggleTodoMock ).toHaveBeenCalledWith( todo.id )
     })
+
+    test('should call onDeleteTodo with id param', () => {
+
+        render(
+            <TodoItem
+                todo={todo}
+                onToggleTodo={ onToggleTodoMock }
+                onDeleteTodo={ onDeleteTodoMock }
+            />
+        )
+
+        const deleteButton = screen.getByRole('button');
+        fireEvent.click( deleteButton )   
+        
+        expect( onDeleteTodoMock ).toHaveBeenCalledWith( todo.id )
+    })
 })
