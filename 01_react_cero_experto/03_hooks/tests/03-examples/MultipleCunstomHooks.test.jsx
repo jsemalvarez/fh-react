@@ -1,10 +1,22 @@
-import { render, screen } from "@testing-library/react"
+import { act, fireEvent, render, screen } from "@testing-library/react"
 import { MultipleCustomHooks } from "../../src/03-examples"
 import { useFetch } from "../../src/hooks/useFetch"
+import { useCounter } from "../../src/hooks/useCounter"
 
 jest.mock('../../src/hooks/useFetch')
+jest.mock('../../src/hooks/useCounter')
 
 describe('MultipleCustomHooks', () => {
+
+    const mockIncrement = jest.fn()
+    useCounter.mockReturnValue({
+        counter:1,
+        increment: mockIncrement
+    })
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+    })
 
     test('should render the initial state',() => {
 
@@ -39,5 +51,22 @@ describe('MultipleCustomHooks', () => {
         
         const nextButton = screen.getByRole('button', {name: 'Next quote'})
         expect( nextButton.disabled ).toBeFalsy()
+    })
+
+    test('should increment', ()=> {
+
+        const mockQuote = {author:'josema', quote:'hola mundo'};
+        useFetch.mockReturnValue({
+            data:[mockQuote],
+            isLoading: false,
+            hasError: null
+        })
+
+        render( <MultipleCustomHooks /> );
+
+        const nextButton = screen.getByRole('button', {name: 'Next quote'})
+        fireEvent.click( nextButton )
+
+        expect( mockIncrement ).toHaveBeenCalled()
     })
 })
