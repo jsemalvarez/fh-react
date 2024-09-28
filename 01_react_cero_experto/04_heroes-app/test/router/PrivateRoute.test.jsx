@@ -29,7 +29,7 @@ describe('PrivateRoute.jsx', () => {
         )
 
         expect( screen.getByText('Ruta privada') ).toBeTruthy()
-        expect( localStorage.setItem ).toHaveBeenCalledWith( 'lastPath', 'search?q=batman')
+        expect( localStorage.setItem ).toHaveBeenCalledWith( 'lastPath', '/search?q=batman')
 
     })
 })
