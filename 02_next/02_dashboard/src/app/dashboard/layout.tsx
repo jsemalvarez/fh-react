@@ -1,4 +1,4 @@
-import { Sidebar } from "../components"
+import { Sidebar } from "../../components"
 
 export default function RootLayout({ children }: {children: React.ReactNode }) {
     
