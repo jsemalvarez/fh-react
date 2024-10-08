@@ -38,8 +38,11 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## RECURSOS
 
+### CSS
 - [tailwindcss](https://tailwindcss.com/)
 - [TailwindComponents - dashboard](https://www.creative-tim.com/twcomponents/component/dashboard-navigation)
 
+### ICONS
 - [REACT ICONS](https://react-icons.github.io/react-icons/)
-Nota: la pagina oficial, no tiene un buscador, pero podemos usar el buscador que tiene la pagina oficial de cada paquete de iconos 
+> [!NOTE]  
+> La pagina oficial, no tiene un buscador, pero podemos usar el buscador que tiene la pagina oficial de cada paquete de iconos.
