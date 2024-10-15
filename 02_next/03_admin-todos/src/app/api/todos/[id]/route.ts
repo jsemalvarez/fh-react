@@ -21,7 +21,7 @@ export async function GET(request: Request, { params}: Segments){
 
     const { id } = params
 
-    const todo = await getTodo(params.id);
+    const todo = await getTodo(id);
 
     if(!todo){
         return NextResponse.json({ message: `todo con id: ${id} no existe`}, { status: 404 })
@@ -34,11 +34,12 @@ const putSchema = yup.object({
     description: yup.string().optional(),
     complete: yup.boolean().optional(),
 })
+
 export async function PUT(request: Request, { params }: Segments){
 
     const { id } = params;
 
-    const todo = await getTodo(params.id);
+    const todo = await getTodo(id);
 
     if(!todo){
         return NextResponse.json({ message: `todo con id: ${id} no existe`}, { status: 404 })
