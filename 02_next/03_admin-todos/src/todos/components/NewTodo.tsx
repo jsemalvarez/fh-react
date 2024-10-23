@@ -1,14 +1,18 @@
 'use client';
 
 import { IoTrashOutline } from "react-icons/io5";
-import { createTodo, deleteCompleted } from "../helpers/todos";
+import { 
+  // createTodo, 
+  // deleteCompleted 
+} from "../helpers/todos";
 import { FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
+import { addTodo, deleteTodo } from "../actions/todo-actions";
 
 
 export const NewTodo = () => { 
 
-  const router = useRouter();
+  // const router = useRouter();
 
   const [description, setDescription] = useState('')
 
@@ -16,15 +20,19 @@ export const NewTodo = () => {
     e.preventDefault()
     if( description.trim().length === 0 ) return; 
 
-    await createTodo(description);
+    // creando mediante API
+    // await createTodo(description);
+    // router.refresh();
+    // creando mediante SERVER ACTIONS
+    await addTodo(description)
     setDescription('');
-    router.refresh();
 
   }
 
   const onDeleteCompleted = async () => {
-    await deleteCompleted();
-    router.refresh();
+    // await deleteCompleted();
+    // router.refresh();
+    await deleteTodo()
   }
 
   return (
