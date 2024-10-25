@@ -7,6 +7,8 @@
   
 - validar con [yup](https://www.npmjs.com/package/yup) las peticiones HTTP
 
+- [cookies-next](https://www.npmjs.com/package/cookies-next)
+
 ## Development
 
 Pasos para levantar la base de datos 
@@ -77,7 +79,7 @@ body = {
 ```
 ## APUNTES
 > [!NOTE]  
-> Actualizar Server Component 
+> Actualizar data desde un Server Component 
 > router.refresh();  
 > recarga la ruta actual y solo recarga los componentes afectados
 ```javascript
@@ -132,6 +134,7 @@ export const toggleTodo =  async( id: string, complete: boolean): Promise<Todo>=
     return updateTodo;
 
 }
+
 ```
 Despues podemos llamar esa misma funcion directamente en el componente
 ```javascript
@@ -148,11 +151,16 @@ Despues podemos llamar esa misma funcion directamente en el componente
 
   }
 ```
+> [!NOTE]  
+> Actualizar data desde un Server Actions 
+> revalidatePath('/dashboard/server-actions') 
+> recarga la ruta actual y solo recarga los componentes afectados
+
 > [!WARNING]  
 > Cuando trabajamos con server actions, si pasamos un objeto como parametro, dicho objeto no puede tener funciones
 
 ### useOptimistic Hook - React 
-actulizamos la vista lo mas rapido posible son esperar una respeusta del back, si algo sale mal, deberiamos 
+actulizamos la vista lo mas rapido posible sin esperar una respeusta del back, si algo sale mal, deberiamos 
 mostrar un mensaje de que no se pudo completar la operacion y volvemos el estado a los valores que tenia
 ```javascript
     const [todoOptimistic, setTodoOptimistic] = useOptimistic(
@@ -167,7 +175,30 @@ mostrar un mensaje de que no se pudo completar la operacion y volvemos el estado
             await toggleTodo(todoOptimistic.id, !todo.complete);
         } catch (error) {
             console.log(error)
+            // vaolvemos el estado a los valores que tenia
             startTransition( () => setTodoOptimistic( !todoOptimistic.complete));
         }
     }
+```
+
+### cookies en client components 
+manejamos las cookies en el front con el paquete cookies-next
+```javascript
+    import { getCookie, hasCookie, setCookie } from "cookies-next"
+
+    if( hasCookie('cart') ){
+        const cookieCart = JSON.parse( getCookie('cart') ?? '{}'); // la validacion ?? '{}' es por TS 
+        return cookieCart;
+        setCookie( 'cart', JSON.stringify(cookieCart))
+    }
+
+```
+
+### cookies en server components 
+```javascript
+    import { cookies } from 'next/headers' // <<<< no se instala
+
+    const cookieStore = await cookies()
+    const cookieTab = cookieStore.get('selectedTab')?.value || '1'
+
 ```
