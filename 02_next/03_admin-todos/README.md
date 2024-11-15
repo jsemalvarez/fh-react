@@ -9,6 +9,9 @@
 
 - [cookies-next](https://www.npmjs.com/package/cookies-next)
 
+- [next-auth example](https://next-auth.js.org/getting-started/example)
+- [generate-secret.vercel](https://generate-secret.vercel.app/32)
+
 ## Development
 
 Pasos para levantar la base de datos 
@@ -146,7 +149,7 @@ Despues podemos llamar esa misma funcion directamente en el componente
     // await createTodo(description);
     // router.refresh();
     // creando mediante SERVER ACTIONS
-    await addTodo(description)
+    await createTodo(description)
     setDescription('');
 
   }
@@ -181,7 +184,7 @@ mostrar un mensaje de que no se pudo completar la operacion y volvemos el estado
     }
 ```
 
-### cookies en client components 
+### Cookies en client components 
 manejamos las cookies en el front con el paquete cookies-next
 ```javascript
     import { getCookie, hasCookie, setCookie } from "cookies-next"
@@ -194,11 +197,98 @@ manejamos las cookies en el front con el paquete cookies-next
 
 ```
 
-### cookies en server components 
+### Cookies en server components 
 ```javascript
     import { cookies } from 'next/headers' // <<<< no se instala
 
     const cookieStore = await cookies()
     const cookieTab = cookieStore.get('selectedTab')?.value || '1'
 
+```
+
+### NextAuth.js
+
+[next-auth](https://next-auth.js.org/)
+
+1. install next-auth
+```
+npm install next-auth
+```
+
+2. creamos el archivo __api/auth/[...nextauth]/router.ts.__
+```javascript
+import NextAuth, { NextAuthOptions } from "next-auth"
+import GithubProvider from "next-auth/providers/github"
+
+export const authOptions: NextAuthOptions = {
+  // Configure one or more authentication providers
+  providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_ID ?? '',
+      clientSecret: process.env.GITHUB_SECRET ?? '',
+    }),
+    // ...add more providers here
+  ],
+}
+
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };
+```
+
+3. [add NEXTAUTH_SECRET to .env](https://next-auth.js.org/configuration/options#secret)
+4. [generate NEXTAUTH_SECRET](https://generate-secret.vercel.app/32)
+
+> [!NOTE]  
+> tenems que crear un OAuth Apps  
+> github profile/settings/developer settings/OAuth Apps 
+5. [config github provider](https://next-auth.js.org/providers/github)
+    - [config callback url](https://next-auth.js.org/configuration/providers/oauth)
+    - GITHUB_ID se genera automaticamente 
+    - GITHUB_SECRET se genera solo una vez
+ 
+> [!NOTE]  
+> example callback url  
+> [origin]/api/auth/callback/[provider]  
+> http://localhost:3000/api/auth/callback/github  
+
+#### - Obtener sesion del lado del servidor 
+```javascript
+```
+
+#### - Obtener sesion del lado del cliente 
+```javascript
+```
+
+### - Guardar usuarios que ingresan con providers  Prisma Adapter - AuthJS
+1. instalacion 
+```javascript
+  npm install @prisma/client @auth/prisma-adapter
+  npm install prisma --save-dev
+```
+2. configuracion 
+En el archivo __app/api/auth/[...nextauth]/routes.ts__ agregamos lo siguiente:
+```javascript
+  import prisma from "@/lib/prisma"; // <<<< 
+  import { PrismaAdapter } from "@auth/prisma-adapter"; // <<<< 
+
+  export const authOptions: NextAuthOptions = {
+    adapter: PrismaAdapter(prisma) as Adapter, // <<<< 
+    // Configure one or more authentication providers
+    providers: [
+      GithubProvider({
+        clientId: process.env.GITHUB_ID ?? '',
+        clientSecret: process.env.GITHUB_SECRET ?? '',
+      }),
+      // ...add more providers here
+    ],
+  }
+```
+3. Copiamos el modelo que nos recomiendan en la [documentacion](https://authjs.dev/getting-started/adapters/prisma#schema) en el archivo de los modelos __prisma/schema.prisma__ 
+4. creamos la migracion 
+```javascript
+  npm exec prisma migrate dev
+```
+5. creamos el cliente
+```javascript
+  npm exec prisma generate
 ```

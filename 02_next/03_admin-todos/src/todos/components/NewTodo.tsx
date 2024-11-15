@@ -7,7 +7,7 @@ import {
 } from "../helpers/todos";
 import { FormEvent, useState } from "react";
 // import { useRouter } from "next/navigation";
-import { addTodo, deleteTodo } from "../actions/todo-actions";
+import { createTodo, deleteTodo } from "../actions/todo-actions";
 
 
 export const NewTodo = () => { 
@@ -24,7 +24,7 @@ export const NewTodo = () => {
     // await createTodo(description);
     // router.refresh();
     // creando mediante SERVER ACTIONS
-    await addTodo(description)
+    await createTodo(description)
     setDescription('');
 
   }
