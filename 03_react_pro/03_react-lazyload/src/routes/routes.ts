@@ -18,7 +18,7 @@ export const routesWithoutChildren: Route[] = [
     {
         to:'/lazy1',
         path: 'lazy1',
-        Component: LazyPage1,
+        Component: LazyPage1, // no carga de forma lazyload
         name: 'Lazy-1'
     },
     {
@@ -47,7 +47,7 @@ export const routes: Route[] = [
     {
         to: '/no-lazy',
         path: 'no-lazy',
-        Component: NoLazy,
+        Component: NoLazy, // no carga de forma lazyload
         name: 'No Lazy'
     },
 
