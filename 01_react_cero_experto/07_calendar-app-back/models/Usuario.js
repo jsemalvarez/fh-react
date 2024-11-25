@@ -11,7 +11,7 @@ const UserSchema = new mongoose.Schema({
         requie: true,
         uniqued: true
     },
-    name: {
+    password: {
         type: String,
         requied: true
     },
@@ -19,4 +19,4 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('user', UserSchema);
 
-model.exports = User;
+module.exports = User;

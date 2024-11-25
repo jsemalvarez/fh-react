@@ -11,7 +11,7 @@ const login = async(req, res) => {
         let user = await User.findOne({ email });
 
         if(!user){
-            res.status(400).json({
+            return res.status(400).json({
                 ok: false,
                 msg: 'El usuario o password incorrectos'
             })
@@ -20,7 +20,7 @@ const login = async(req, res) => {
         const validPassword = bcrypt.compareSync(password, user.password)
 
         if(!validPassword){
-            res.status(400).json({
+            return res.status(400).json({
                 ok: false,
                 msg: 'El usuario o password incorrectos'
             })
@@ -37,6 +37,7 @@ const login = async(req, res) => {
         })
         
     } catch (error) {
+        console.log(error)
         res.status(500).json({
             ok: false,
             msg: 'Server Error'

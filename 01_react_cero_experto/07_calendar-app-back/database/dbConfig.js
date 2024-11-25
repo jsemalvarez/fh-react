@@ -4,9 +4,9 @@ const mongoose = require("mongoose");
 const dbConnection = async(uriConnection) => {
     try {
         await mongoose.connect(uriConnection,{
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true
+            // useNewUrlParser: true,
+            // useUnifiedTopology: true,
+            // useCreateIndex: true
         });
         
     } catch (error) {
