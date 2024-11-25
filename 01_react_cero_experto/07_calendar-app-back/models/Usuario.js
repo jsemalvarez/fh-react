@@ -4,16 +4,16 @@ const mongoose = require("mongoose");
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
-        requie: true
+        requied: true
     },
     email: {
         type: String,
         requie: true,
-        unique: true
+        uniqued: true
     },
     name: {
         type: String,
-        requie: true
+        requied: true
     },
 });
 
