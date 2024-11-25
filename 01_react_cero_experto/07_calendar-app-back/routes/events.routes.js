@@ -15,7 +15,7 @@ router.get('/',eventsController.getEvents);
 router.post(
     '/',
     [
-        check('titulo', 'El titulo es obligatorio').not().isEmpty(),
+        check('title', 'El titulo es obligatorio').not().isEmpty(),
         check('start', 'La fecha de inicio es obligatorio').custom( isDate ),
         check('end', 'La fecha de inicio es obligatorio').custom( isDate ),
         vadarCampos

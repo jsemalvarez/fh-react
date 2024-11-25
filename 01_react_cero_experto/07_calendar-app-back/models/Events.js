@@ -13,13 +13,13 @@ const EventSchema = new Schema({
         type: Date,
         required: true
     },
-    encodeURIComponent:{
+    end:{
         type: Date,
         required: true
     },
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'Usuario',
+        ref: 'user',
         required: true
     }
 })

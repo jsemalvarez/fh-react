@@ -12,6 +12,7 @@ const getEvents = async(req, res) => {
         })
         
     } catch (error) {
+        console.log(error)
         res.status(500).json({
             ok: false,
             msg: 'Server error'

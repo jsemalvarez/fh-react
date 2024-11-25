@@ -6,9 +6,9 @@
 // console.log(isValidDate(1700000000000)); // true (timestamp válido)
 // console.log(isValidDate(NaN)); // false
 
-const isDate = ( value ) => {
+const isDate = ( date ) => {
 
-    if( !value){
+    if( !date){
         return false
     }
 
